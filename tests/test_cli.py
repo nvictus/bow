@@ -13,40 +13,40 @@ datadir = op.join(testdir, "data")
 
 
 def test_par2txt():
-    path = op.join(datadir, 'example.parquet')
+    path = op.join(datadir, "example.parquet")
 
     df1 = pd.read_parquet(path)
     with StringIO() as buf, redirect_stdout(buf):
-        par2txt.callback(path, sep='\t', header=True, index=False)
+        par2txt.callback(path, sep="\t", header=True, index=False)
         buf.seek(0)
-        df2 = pd.read_csv(buf, sep='\t')
-    
-    assert df1['salary'].equals(df2['salary'])
+        df2 = pd.read_csv(buf, sep="\t")
+
+    assert df1["salary"].equals(df2["salary"])
 
 
 def test_txt2par():
-    path = op.join(datadir, 'example.parquet')
+    path = op.join(datadir, "example.parquet")
 
     df1 = pd.read_parquet(path)
-    with NamedTemporaryFile('w+t') as fin, \
-         NamedTemporaryFile('w+b') as fout, \
+    with NamedTemporaryFile("w+t") as fin, \
+         NamedTemporaryFile("w+b") as fout, \
          redirect_stdout(fin):
-        
-        par2txt.callback(path, sep='\t', header=True, index=False)
+
+        par2txt.callback(path, sep="\t", header=True, index=False)
         fin.seek(0)
-        
+
         txt2par.callback(
-            path=fin.name, 
-            outpath=fout.name, 
-            sep="\t", 
-            header=True, 
-            index=None, 
+            path=fin.name,
+            outpath=fout.name,
+            sep="\t",
+            header=True,
+            index=None,
             schema=None,
             input_chunksize=4096,
-            output_chunksize=1000
+            output_chunksize=1000,
         )
         fout.seek(0)
 
         df2 = pd.read_parquet(fout.name)
-    
-    assert df1['salary'].equals(df2['salary'])
+
+    assert df1["salary"].equals(df2["salary"])
