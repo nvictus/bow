@@ -31,6 +31,10 @@ def cli():
     is_flag=True
 )
 def info(path, schema):
+    """
+    Print Parquet file metadata.
+
+    """
     path, _, _, should_close = get_filepath_or_buffer(path)
 
     f = IterableParquetFile(path)
@@ -64,7 +68,11 @@ def info(path, schema):
     is_flag=True,
     help="Include index in output."
 )
-def cat(path, sep, header, index):
+def par2txt(path, sep, header, index):
+    """
+    Convert Parquet to CSV text.
+
+    """
     path, _, _, should_close = get_filepath_or_buffer(path)
 
     f = IterableParquetFile(path)
@@ -119,7 +127,11 @@ def cat(path, sep, header, index):
     type=str,
     help="Provide data types for columns as a JSON string."
 )
-def load(path, outpath, sep, header, index, schema, input_chunksize, output_chunksize):
+def txt2par(path, outpath, sep, header, index, schema, input_chunksize, output_chunksize):
+    """
+    Convert CSV text to Parquet.
+
+    """
     if path == '-':
         path = sys.stdin
     
@@ -146,4 +158,6 @@ def load(path, outpath, sep, header, index, schema, input_chunksize, output_chun
         it, outpath, row_group_size=output_chunksize, compression='snappy'
     )
 
-cli()
+
+if __name__ == "__main__":
+    cli()
