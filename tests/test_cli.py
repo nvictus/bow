@@ -5,7 +5,7 @@ import os.path as op
 
 import pandas as pd
 import pytest
-from bow.__main__ import par2txt, txt2par
+from bow._cli import par2txt, txt2par
 
 testdir = op.realpath(op.dirname(__file__))
 datadir = op.join(testdir, "data")
