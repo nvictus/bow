@@ -20,9 +20,14 @@ def cli():
 
 @cli.command()
 @click.argument(
-    "path", type=str,
+    "path", 
+    type=str,
 )
-@click.option("-s", "--schema", help="Print table schema.", is_flag=True)
+@click.option(
+    "-s", "--schema", 
+    help="Print table schema.", 
+    is_flag=True,
+)
 def info(path, schema):
     """
     Print Parquet file metadata.
@@ -42,19 +47,25 @@ def info(path, schema):
 
 @cli.command()
 @click.argument(
-    "path", type=str,
+    "path", 
+    type=str,
 )
 @click.option(
-    "-s",
-    "--sep",
+    "-s", "--sep",
     type=str,
     default="\t",
     help="Output field separator [Default: tab]. ",
 )
 @click.option(
-    "-H", "--header", is_flag=True, help="Include column name header in output."
+    "-H", "--header", 
+    is_flag=True, 
+    help="Include column name header in output.",
 )
-@click.option("-i", "--index", is_flag=True, help="Include index in output.")
+@click.option(
+    "-i", "--index", 
+    is_flag=True, 
+    help="Include index in output.",
+)
 def par2txt(path, sep, header, index):
     """
     Convert Parquet to CSV text.
@@ -73,35 +84,46 @@ def par2txt(path, sep, header, index):
 
 
 @cli.command()
-@click.argument("path", type=str)
-@click.argument("outpath", type=str)
+@click.argument(
+    "path", 
+    type=str,
+)
+@click.argument(
+    "outpath", 
+    type=str,
+)
 @click.option(
-    "-ic",
-    "--input-chunksize",
+    "-ic", "--input-chunksize",
     type=int,
     default=4096,
     help="Input buffer size in bytes",
 )
 @click.option(
-    "-oc",
-    "--output-chunksize",
+    "-oc", "--output-chunksize",
     type=int,
     default=1000000,
     help="Output row group size (# of rows)",
 )
 @click.option(
-    "-s",
-    "--sep",
+    "-s", "--sep",
     type=str,
     default="\t",
     help="Output field separator [Default: tab]. ",
 )
-@click.option("-H", "--header", is_flag=True, help="Input file contains a header.")
 @click.option(
-    "-i", "--index", is_flag=True, help="Set one of the input columns to be the index."
+    "-H", "--header", 
+    is_flag=True, 
+    help="Input file contains a header.",
 )
 @click.option(
-    "-k", "--schema", type=str, help="Provide data types for columns as a JSON string."
+    "-i", "--index", 
+    is_flag=True, 
+    help="Set one of the input columns to be the index.",
+)
+@click.option(
+    "-k", "--schema", 
+    type=str, 
+    help="Provide data types for columns as a JSON string.",
 )
 def txt2par(
     path, outpath, sep, header, index, schema, input_chunksize, output_chunksize
