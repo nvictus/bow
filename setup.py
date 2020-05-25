@@ -59,7 +59,7 @@ setup(
     # extras_require=extras_require,
     entry_points={
         "console_scripts": [
-            "bow  = bow.__main__.cli"
+            "bow = bow.__main__:cli"
         ]
     }
 )
